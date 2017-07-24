@@ -67,7 +67,7 @@ module Spina::Admin
     end
 
     def resource_params
-      params.require(:case_study).permit(:title, :intro, :excerpt, :spina_photo_id, case_study_parts_attributes: [:id, :title, :content, :spina_photo_id, :alignment, :_destroy])
+      params.require(:case_study).permit(:title, :intro, :spina_photo_id, case_study_parts_attributes: [:id, :title, :content, :spina_photo_id, :alignment, :_destroy])
     end
 
   end
