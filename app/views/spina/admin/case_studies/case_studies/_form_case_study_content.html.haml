@@ -14,6 +14,12 @@
 
     .horizontal-form-group
       .horizontal-form-label
+        = Spina::CaseStudies::CaseStudy.human_attribute_name :excerpt
+      .horizontal-form-content
+        = render 'spina/admin/shared/rich_text_field', f: f, field: :excerpt
+
+    .horizontal-form-group
+      .horizontal-form-label
         = Spina::CaseStudies::CaseStudy.human_attribute_name :spina_photo_id
       .horizontal-form-content
         = link_to spina.photo_select_admin_photos_path(f.object_name, selected_photo_id: f.object.try(:spina_photo_id), hidden_field_id: 'spina_photo_id'), remote: true, class: 'media_picker clearfix' do

@@ -3,4 +3,4 @@
 .horizontal-form-content
   .select-dropdown
     = f.label :structure_partable_id, f.object.title
-    = f.select :structure_partable_id, Spina::CaseStudies::CaseStudy.all.map{|c| [c.title, c.id]}, prompt: true
+    = f.select :structure_partable_id, Spina::CaseStudies::CaseStudy.order(:title).map{|c| [c.title, c.id]}, prompt: true

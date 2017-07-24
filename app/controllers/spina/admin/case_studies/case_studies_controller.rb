@@ -9,7 +9,7 @@ module Spina::Admin
     helper Spina::CaseStudies::AdminHelper
 
     def index
-      @case_studies = Spina::CaseStudies::CaseStudy.all
+      @case_studies = Spina::CaseStudies::CaseStudy.order(:title)
     end
 
     def new
@@ -59,7 +59,7 @@ module Spina::Admin
     end
 
     def set_tabs
-      @tabs = %w{case_study_content case_study_configuration}
+      @tabs = %w{case_study_content}
     end
 
     def set_locale
@@ -67,7 +67,7 @@ module Spina::Admin
     end
 
     def resource_params
-      params.require(:case_study).permit(:title, :intro, :spina_photo_id, case_study_parts_attributes: [:id, :title, :content, :spina_photo_id, :alignment, :_destroy])
+      params.require(:case_study).permit(:title, :intro, :excerpt, :spina_photo_id, case_study_parts_attributes: [:id, :title, :content, :spina_photo_id, :alignment, :_destroy])
     end
 
   end
