@@ -5,7 +5,7 @@ require "spina/case_studies/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "spina-case-studies"
+  s.name        = "spina-case_studies"
   s.version     = Spina::CaseStudies::VERSION
   s.authors     = ["Tom Simnett"]
   s.email       = ["tom@initforthe.com"]
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'spina', '~> 0.11', '>= 0.11.1'
   s.add_runtime_dependency 'friendly_id', '~> 5.2', '>= 5.2.1'
+  s.add_runtime_dependency 'cocoon'
 
   s.add_development_dependency 'sqlite3', '~> 1.3.13', '>= 1.3.13'
   s.add_development_dependency 'simplecov', '~> 0'

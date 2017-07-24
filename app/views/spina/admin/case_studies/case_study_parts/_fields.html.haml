@@ -1,0 +1,41 @@
+.structure-form-pane{class: ('active' if f.options[:child_index] == 0), id: "structure_form_pane_#{f.object.object_id}"}
+  / Structure parts
+  .structure-form-part
+    .horizontal-form-label
+      = f.label :title
+    .horizontal-form-content
+      = f.text_field :title, placeholder: Spina::CaseStudies::CaseStudyPart.human_attribute_name(:title_placeholder)
+
+  .structure-form-part
+    .horizontal-form-label
+      = f.label :content
+    .horizontal-form-content
+      = render 'spina/admin/shared/rich_text_field', f: f, field: :content
+
+  .structure-form-part
+    .horizontal-form-label
+      = f.label :spina_photo
+    .horizontal-form-content
+      = link_to spina.photo_select_admin_photos_path(f.object_name, selected_photo_id: f.object.try(:spina_photo_id), hidden_field_id: 'spina_photo_id'), remote: true, class: 'media_picker clearfix' do
+        .placeholder
+          %span.button.button-small.button-round
+            %i.icon.icon-dots
+            =t 'spina.pages.photo_picker'
+
+        - if f.object.spina_photo && f.object.spina_photo.file.present?
+          .image
+            = image_tag f.object.spina_photo.file.thumb
+
+        = f.hidden_field :spina_photo_id, data: { hidden_field_id: 'spina_photo_id'}
+
+  .structure-form-part
+    .horizontal-form-label
+      = f.label :alignment
+    .horizontal-form-content
+      .select-dropdown
+        = f.label :alignment
+        = f.select :alignment, [['Right', 'right'], ['Left', 'left'], ['Centre', 'centre']], prompt: true
+  / Hidden field
+  = f.hidden_field :position, placeholder: "Position", class: "structure_form_pane_#{f.object.object_id}_position"
+  = f.hidden_field :_destroy
+  = link_to t('spina.delete'), '#', class: 'remove_structure_item_fields button button-mini button-link pull-right'

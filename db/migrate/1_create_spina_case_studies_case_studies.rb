@@ -14,6 +14,7 @@ class CreateSpinaCaseStudiesCaseStudies < ActiveRecord::Migration[5.0]
       t.references :case_study, foreign_key: { to_table: :spina_case_studies_case_studies }
       t.references :spina_photo, foreign_key: true
       t.string :alignment
+      t.integer :position
 
       t.timestamps
     end

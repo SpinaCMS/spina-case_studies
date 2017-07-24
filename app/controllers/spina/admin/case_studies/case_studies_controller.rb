@@ -6,19 +6,50 @@ module Spina::Admin
 
     layout 'spina/admin/case_studies'
 
+    helper Spina::CaseStudies::AdminHelper
+
     def index
+      @case_studies = Spina::CaseStudies::CaseStudy.all
     end
 
     def new
+      @case_study = Spina::CaseStudies::CaseStudy.new
+      add_breadcrumb I18n.t('spina.case_studies.case_studies.new')
+      render layout: 'spina/admin/admin'
     end
 
     def create
+      @case_study = Spina::CaseStudies::CaseStudy.new resource_params
+
+      if @case_study.save
+        redirect_to spina.admin_case_studies_case_studies_path, notice: t('spina.case_studies.case_studies.saved')
+      else
+        add_breadcrumb I18n.t('spina.case_studies.case_studies.new')
+        render :new, layout: 'spina/admin/admin'
+      end
     end
 
     def edit
+      @case_study = Spina::CaseStudies::CaseStudy.find params[:id]
+      add_breadcrumb @case_study.title
+      render layout: 'spina/admin/admin'
     end
 
     def update
+      @case_study = Spina::CaseStudies::CaseStudy.find params[:id]
+
+      if @case_study.update_attributes resource_params
+        redirect_to spina.admin_case_studies_case_studies_path, notice: t('spina.case_studies.case_studies.saved')
+      else
+        add_breadcrumb @case_study.title
+        render :edit, layout: 'spina/admin/admin'
+      end
+    end
+
+    def destroy
+      @case_study = Spina::CaseStudies::CaseStudy.find params[:id]
+      @case_study.destroy
+      redirect_to spina.admin_case_studies_case_studies_path, notice: t('spina.case_studies.case_studies.destroyed')
     end
 
     private
@@ -28,7 +59,7 @@ module Spina::Admin
     end
 
     def set_tabs
-      @tabs = %w{case_study_content case_study__configuration}
+      @tabs = %w{case_study_content case_study_configuration}
     end
 
     def set_locale
@@ -36,7 +67,7 @@ module Spina::Admin
     end
 
     def resource_params
-      params.require(:case_study).permit(:title, :intro)
+      params.require(:case_study).permit(:title, :intro, :spina_photo_id, case_study_parts_attributes: [:id, :title, :content, :spina_photo_id, :alignment, :_destroy])
     end
 
   end

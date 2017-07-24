@@ -1,6 +1,7 @@
-require 'carrierwave'
 require 'friendly_id'
 require 'spina'
+require 'carrierwave'
+require 'cocoon'
 
 module Spina
   module CaseStudies

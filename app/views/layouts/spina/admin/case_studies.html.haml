@@ -1,0 +1,14 @@
+- content_for :application do
+  %header#header
+    #header_actions
+      = yield(:header_actions) if content_for?(:header_actions)
+
+    .breadcrumbs= render_breadcrumbs separator: '<div class="divider"></div>'
+
+    %nav#secondary.tabs
+      %ul
+        %li{class: ('active' if controller_name == 'case_studies' and action_name == 'index')}
+          = link_to t('spina.case_studies.case_studies.index'), spina.admin_case_studies_case_studies_path
+  = yield
+
+= render template: "layouts/spina/admin/admin"

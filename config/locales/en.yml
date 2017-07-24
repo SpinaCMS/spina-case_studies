@@ -1,1 +1,33 @@
 en:
+  spina:
+    case_studies:
+      title: Case Studies
+
+      case_studies:
+        index: All Case Studies
+        title: Case Studies
+        new: New Case Study
+        save: Save case study
+        saving: Saving...
+        saved: Case study saved
+        case_study_content: Content
+        case_study_configuration: Settings
+        concept: Draft
+        destroyed: Case study destroyed
+        delete_confirmation: Are you sure you want to delete this case study?
+
+      case_study_parts:
+        title: Content Blocks
+
+  activerecord:
+    attributes:
+      spina/case_studies/case_study:
+        title: Title
+        intro: Introduction
+
+      spina/case_studies/case_study_part:
+        title: title
+        title_placeholder: Heading for content block
+        content: Content
+        alignment: Alignment
+        spina_photo: Photo
