@@ -7,7 +7,7 @@ module Spina
         fields = f.fields_for(association, new_object, child_index: id) do |builder|
           render("spina/admin/#{ partable_partial_namespace(new_object) }/fields", f: builder)
         end
-        link_to '#', class: "add_structure button button-link", data: {id: id, fields: fields.gsub("\n", "")} do
+        link_to '#', class: "add_structure add_structure_item_fields button button-link", data: {id: id, fields: fields.gsub("\n", "")} do
           block.yield
         end
       end
