@@ -36,7 +36,7 @@
           %ul
             - unless f.object.case_study_parts.nil?
               - f.object.case_study_parts.sort_by(&:position).each_with_index do |part, index|
-                %li{class: ('active' if index == 0), data: {case_study_part_id: part.object_id}}
+                %li{class: ('active' if index == 0), data: {structure_item_id: part.object_id, case_study_part_id: part.object_id}}
                   = link_to "#structure_form_pane_#{part.object_id}" do
                     %i.icon.icon-bars.sortable-handle
                     = part.title

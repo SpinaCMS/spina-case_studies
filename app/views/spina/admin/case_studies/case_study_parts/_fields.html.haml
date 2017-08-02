@@ -16,7 +16,7 @@
     .horizontal-form-label
       = f.label :spina_photo
     .horizontal-form-content
-      = link_to spina.photo_select_admin_photos_path(f.object_name, selected_photo_id: f.object.try(:spina_photo_id), hidden_field_id: 'spina_photo_id'), remote: true, class: 'media_picker clearfix' do
+      = link_to spina.photo_select_admin_photos_path(f.object_name, selected_photo_id: f.object.try(:spina_photo_id), hidden_field_id: "spina_photo_id_#{f.object.object_id}"), remote: true, class: 'media_picker clearfix' do
         .placeholder
           %span.button.button-small.button-round
             %i.icon.icon-dots
@@ -26,7 +26,7 @@
           .image
             = image_tag f.object.spina_photo.file.thumb
 
-        = f.hidden_field :spina_photo_id, data: { hidden_field_id: 'spina_photo_id'}
+        = f.hidden_field :spina_photo_id, id: "spina_photo_id_#{f.object.object_id}", data: { hidden_field_id: "spina_photo_id_#{f.object.object_id}"}
 
   .structure-form-part
     .horizontal-form-label
