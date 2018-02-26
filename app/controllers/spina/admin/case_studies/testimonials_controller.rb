@@ -36,7 +36,7 @@ module Spina::Admin
     end
 
     def update
-      @testimonial = Spina::CaseStudies::CaseStudy.find params[:id]
+      @testimonial = Spina::CaseStudies::Testimonial.find params[:id]
 
       if @testimonial.update_attributes resource_params
         redirect_to spina.admin_case_studies_testimonials_path, notice: t('spina.case_studies.testimonials.saved')
