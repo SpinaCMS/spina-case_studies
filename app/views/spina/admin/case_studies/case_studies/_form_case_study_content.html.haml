@@ -24,7 +24,7 @@
 
           - if f.object.spina_photo && f.object.spina_photo.file.present?
             .image
-              = image_tag f.object.spina_photo.file.thumb
+              = image_tag f.object.spina_photo.file.thumb.url
 
           = f.hidden_field :spina_photo_id, data: { hidden_field_id: 'spina_photo_id'}
 
@@ -47,3 +47,54 @@
         .structure-form-content
           = f.fields_for :case_study_parts, f.object.case_study_parts.sort_by(&:position) do |ff|
             = render 'spina/admin/case_studies/case_study_parts/fields', f: ff
+
+    .horizontal-form-content
+      .structure-form
+        .structure-form-menu
+          %label
+            = t('spina.case_studies.case_studies.testimonial')
+            (Optional)
+
+        .structure-form-content
+          = f.fields_for :testimonial, (f.object.testimonial || f.object.build_testimonial) do |ff|
+            .structure-form-pane{class: 'active'}
+              .structure-form-part
+                .horizontal-form-label
+                  = Spina::CaseStudies::Testimonial.human_attribute_name :name
+                .horizontal-form-content
+                  = ff.text_field :name, placeholder: Spina::CaseStudies::Testimonial.human_attribute_name(:name_placeholder)
+
+              .structure-form-part
+                .horizontal-form-label
+                  = Spina::CaseStudies::Testimonial.human_attribute_name :company
+                .horizontal-form-content
+                  = ff.text_field :company, placeholder: Spina::CaseStudies::Testimonial.human_attribute_name(:company_placeholder)
+
+              .structure-form-part
+                .horizontal-form-label
+                  = Spina::CaseStudies::Testimonial.human_attribute_name :job_title
+                .horizontal-form-content
+                  = ff.text_field :job_title, placeholder: Spina::CaseStudies::Testimonial.human_attribute_name(:job_title_placeholder)
+
+              .structure-form-part
+                .horizontal-form-label
+                  = Spina::CaseStudies::Testimonial.human_attribute_name :content
+                .horizontal-form-content
+                  = render 'spina/admin/shared/rich_text_field', f: ff, field: :content
+
+
+              .structure-form-part
+                .horizontal-form-label
+                  = Spina::CaseStudies::Testimonial.human_attribute_name :spina_photo_id
+                .horizontal-form-content
+                  = link_to spina.photo_select_admin_photos_path(ff.object_name, selected_photo_id: ff.object.try(:spina_photo_id), hidden_field_id: 'case_study_testimonial_attributes_spina_photo_id'), remote: true, class: 'media_picker clearfix' do
+                    .placeholder
+                      %span.button.button-small.button-round
+                        %i.icon.icon-dots
+                        =t 'spina.pages.photo_picker'
+
+                    - if ff.object.spina_photo && ff.object.spina_photo.file.present?
+                      .image
+                        = image_tag ff.object.spina_photo.file.thumb.url
+
+                    = ff.hidden_field :spina_photo_id, data: { hidden_field_id: 'case_study_testimonial_attributes_spina_photo_id'}

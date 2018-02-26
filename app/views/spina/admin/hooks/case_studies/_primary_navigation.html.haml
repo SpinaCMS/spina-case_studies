@@ -5,4 +5,6 @@
     = icon 'caret-right'
   %ul
     %li{class: ('active' if current_admin_path.start_with?('/case_studies'))}
-      = link_to t('spina.case_studies.title'), admin_case_studies_case_studies_path
+      = link_to t('spina.case_studies.case_studies.title'), admin_case_studies_case_studies_path
+    %li{class: ('active' if current_admin_path.start_with?('/testimonials'))}
+      = link_to t('spina.case_studies.testimonials.title'), admin_case_studies_testimonials_path

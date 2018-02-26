@@ -19,15 +19,40 @@ en:
       case_study_parts:
         title: Content Blocks
 
+      testimonials:
+        index: All Testimonials
+        title: Testimonials
+        new: New Testimonial
+        save: Save testimonial
+        saving: Saving...
+        saved: Testimonial saved
+        testimonial_content: Content
+        testimonial_configuration: Settings
+        concept: Draft
+        destroyed: Testimonial destroyed
+        delete_confirmation: Are you sure you want to delete this testimonial?
+
   activerecord:
     attributes:
       spina/case_studies/case_study:
         title: Title
         intro: Introduction
+        spina_photo_id: Photo
 
       spina/case_studies/case_study_part:
-        title: title
+        title: Title
         title_placeholder: Heading for content block
         content: Content
         alignment: Alignment
         spina_photo: Photo
+
+      spina/case_studies/testimonial:
+        name: Name
+        name_placeholder: Customer's name
+        company: Company
+        company_placeholder: Customer's company name
+        job_title: Job Title
+        job_title_placeholder: eg. Managing Director
+        content: Content
+        content_placeholder: What your customer said about you and your service
+        spina_photo_id: Photo

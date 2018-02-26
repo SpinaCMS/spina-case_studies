@@ -1,0 +1,24 @@
+%tr{data: { id: testimonial.id }}
+  %td.nowrap
+    %h3
+      = link_to spina.edit_admin_case_studies_testimonial_path(testimonial.id) do
+        %strong= testimonial.name
+        - if testimonial.company.present?
+          = testimonial.company
+    %small #{time_ago_in_words(testimonial.created_at)} ago
+    -# .labels
+    -#   - if testimonial.disabled?
+    -#     %span.label.label-info= t('spina.case_studies.case_studies.disabled')
+    -#   - if testimonial.draft?
+    -#     %span.label.label-info= t('spina.case_studies.case_studies.concept')
+    -#   - if testimonial.yet_to_be_published?
+    -#     %span.label.label-default
+    -#       Will be published on #{testimonial.published_date}
+  %td.nowrap.text-right
+    -# = link_to spina.case_studies_testimonial_path(testimonial.id), class: 'button button-small button-link dd-nodrag', target: '_blank' do
+    -#   = icon 'eye'
+    -#   = t('spina.view')
+
+    = link_to spina.edit_admin_case_studies_testimonial_path(testimonial.id), class: 'button button-link' do
+      = icon 'pencil-outline'
+      = t('spina.Testimonials.edit')

@@ -24,7 +24,7 @@
 
         - if f.object.spina_photo && f.object.spina_photo.file.present?
           .image
-            = image_tag f.object.spina_photo.file.thumb
+            = image_tag f.object.spina_photo.file.thumb.url
 
         = f.hidden_field :spina_photo_id, id: "spina_photo_id_#{f.object.object_id}", data: { hidden_field_id: "spina_photo_id_#{f.object.object_id}"}
 
