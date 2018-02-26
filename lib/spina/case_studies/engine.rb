@@ -3,7 +3,7 @@ module Spina
     class Engine < ::Rails::Engine
       isolate_namespace Spina::CaseStudies
 
-      initializer "register plugin" do
+      config.before_initialize do
         ::Spina::Plugin.register do |plugin|
           plugin.name = "case_studies"
           plugin.namespace = 'case_studies'
