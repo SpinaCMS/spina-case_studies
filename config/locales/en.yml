@@ -37,14 +37,14 @@ en:
       spina/case_studies/case_study:
         title: Title
         intro: Introduction
-        spina_photo_id: Photo
+        image_id: Image
 
       spina/case_studies/case_study_part:
         title: Title
         title_placeholder: Heading for content block
         content: Content
         alignment: Alignment
-        spina_photo: Photo
+        image: Image
 
       spina/case_studies/testimonial:
         name: Name
@@ -55,4 +55,4 @@ en:
         job_title_placeholder: eg. Managing Director
         content: Content
         content_placeholder: What your customer said about you and your service
-        spina_photo_id: Photo
+        image_id: Image

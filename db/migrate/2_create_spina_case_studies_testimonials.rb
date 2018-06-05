@@ -5,7 +5,7 @@ class CreateSpinaCaseStudiesTestimonials < ActiveRecord::Migration[5.1]
       t.string :company
       t.string :job_title
       t.text :content
-      t.references :spina_photo, foreign_key: true
+      t.references :image, foreign_key: { to_table: :spina_images }
 
       t.timestamps
     end

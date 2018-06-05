@@ -3,7 +3,7 @@ class CreateSpinaCaseStudiesCaseStudies < ActiveRecord::Migration[5.0]
     create_table :spina_case_studies_case_studies do |t|
       t.string :title
       t.text :intro
-      t.references :spina_photo, foreign_key: true
+      t.references :image, foreign_key: { to_table: :spina_images }
 
       t.timestamps
     end
@@ -12,7 +12,7 @@ class CreateSpinaCaseStudiesCaseStudies < ActiveRecord::Migration[5.0]
       t.string :title
       t.text :content
       t.references :case_study, foreign_key: { to_table: :spina_case_studies_case_studies }
-      t.references :spina_photo, foreign_key: true
+      t.references :image, foreign_key: { to_table: :spina_images }
       t.string :alignment
       t.integer :position
 

@@ -14,19 +14,19 @@
 
   .structure-form-part
     .horizontal-form-label
-      = f.label :spina_photo
+      = f.label :spina_image
     .horizontal-form-content
-      = link_to spina.photo_select_admin_photos_path(f.object_name, selected_photo_id: f.object.try(:spina_photo_id), hidden_field_id: "spina_photo_id_#{f.object.object_id}"), remote: true, class: 'media_picker clearfix' do
+      = link_to admin_media_picker_path(selected_ids: [f.object.image_id], hidden_field_id: "media_picker_#{f.object.object_id}"), remote: true, class: 'media_picker clearfix' do
         .placeholder
           %span.button.button-small.button-round
             %i.icon.icon-dots
-            =t 'spina.pages.photo_picker'
+            =t 'spina.images.choose_image'
 
-        - if f.object.spina_photo && f.object.spina_photo.file.present?
+        - if f.object&.image&.file&.attached?
           .image
-            = image_tag f.object.spina_photo.file.thumb.url
+            = image_tag variant(f.object.image.file, resize: "300x300^", crop: "300x300+0+0")
 
-        = f.hidden_field :spina_photo_id, id: "spina_photo_id_#{f.object.object_id}", data: { hidden_field_id: "spina_photo_id_#{f.object.object_id}"}
+        = f.hidden_field :image_id, data: { hidden_field_id: "media_picker_#{f.object.object_id}" }
 
   .structure-form-part
     .horizontal-form-label

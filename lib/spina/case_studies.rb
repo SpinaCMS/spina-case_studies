@@ -1,9 +1,9 @@
 require 'friendly_id'
 require 'spina'
-require 'carrierwave'
 require 'cocoon'
 
 module Spina
+  # Spina::CaseStudies
   module CaseStudies
     require 'spina/case_studies/engine'
   end
