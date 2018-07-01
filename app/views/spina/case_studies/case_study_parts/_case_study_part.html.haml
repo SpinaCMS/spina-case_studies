@@ -1,3 +1,4 @@
 %h2= case_study_part.title
 != case_study_part.content
-= image_tag case_study_part.spina_image.file.url
+- if case_study_part.image.present?
+  = image_tag case_study_part.image.file.url
