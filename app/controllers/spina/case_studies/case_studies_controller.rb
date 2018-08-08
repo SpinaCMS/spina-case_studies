@@ -12,7 +12,7 @@ module Spina
       end
 
       def show
-        @case_study = Spina::CaseStudies::CaseStudy.find params[:id]
+        @case_study = Spina::CaseStudies::CaseStudy.friendly.find params[:id]
         render layout: theme_layout
       end
 
