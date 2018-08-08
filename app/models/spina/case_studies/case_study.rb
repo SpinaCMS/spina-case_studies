@@ -4,6 +4,10 @@ module Spina
   module CaseStudies
     # Spina::CaseStudies::CaseStudy
     class CaseStudy < ApplicationRecord
+      include FriendlyId
+
+      friendly_id :title, use: :slugged
+
       belongs_to :image
       belongs_to :testimonial, optional: true, inverse_of: :case_study
 
