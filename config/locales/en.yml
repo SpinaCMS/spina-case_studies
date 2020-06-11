@@ -11,7 +11,7 @@ en:
         saving: Saving...
         saved: Case study saved
         case_study_content: Content
-        case_study_configuration: Settings
+        case_study_seo: Search Engines
         concept: Draft
         destroyed: Case study destroyed
         delete_confirmation: Are you sure you want to delete this case study?
@@ -38,6 +38,12 @@ en:
         title: Title
         intro: Introduction
         image_id: Image
+        seo_title: SEO <title>
+        seo_title_placeholder: This title is used in the <title>-tag
+        description: Meta description
+        description_placeholder: Short description of your case study
+        description_help: This description will be shown in search results
+        slug: URL Slug
 
       spina/case_studies/case_study_part:
         title: Title

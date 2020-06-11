@@ -15,6 +15,7 @@ module Spina
 
         def index
           @case_studies = Spina::CaseStudies::CaseStudy.order(:title)
+          @case_studies = @case_studies.live unless current_spina_user
         end
 
         def new
@@ -68,7 +69,7 @@ module Spina
         end
 
         def set_tabs
-          @tabs = %w[case_study_content]
+          @tabs = %w[case_study_content case_study_seo case_study_advanced]
         end
 
         def set_locale
@@ -77,10 +78,9 @@ module Spina
 
         def resource_params
           params.require(:case_study).permit(
-            :title, :intro, :image_id,
+            :title, :intro, :image_id, :seo_title, :description, :draft,
             case_study_parts_attributes: %i[
-              id title position content
-              image_id alignment _destroy
+              id title position content image_id alignment _destroy
             ],
             testimonial_attributes: %i[
               id name company job_title content image_id
