@@ -1,100 +1,121 @@
-#case_study_content.tab-content.active.well
-  .horizontal-form
-    .horizontal-form-group
-      .horizontal-form-label
+-# haml-lint:disable IdNames
+.tab-content.active#case_study_content
+  -# haml-lint:enable IdNames
+  .page-form
+    .page-form-group
+      .page-form-label
         = Spina::CaseStudies::CaseStudy.human_attribute_name :title
-      .horizontal-form-content
+      .page-form-content
         = f.text_field :title, placeholder: Spina::CaseStudies::CaseStudy.human_attribute_name(:title_placeholder)
 
-    .horizontal-form-group
-      .horizontal-form-label
+    .page-form-group
+      .page-form-label
+        = Spina::CaseStudies::CaseStudy.human_attribute_name :sub_heading
+      .page-form-content
+        = f.text_field :sub_heading, placeholder: Spina::CaseStudies::CaseStudy.human_attribute_name(:sub_heading_placeholder)
+
+    .page-form-group
+      .page-form-label
         = Spina::CaseStudies::CaseStudy.human_attribute_name :intro
-      .horizontal-form-content
-        = render 'spina/admin/shared/rich_text_field', f: f, field: :intro
+      .page-form-content
+        .page-form-rich-text
+          = f.hidden_field :intro, id: 'intro_input'
+          %trix-editor.text-input.trix-content{ input: 'intro_input' }
 
-    .horizontal-form-group
-      .horizontal-form-label
+    .page-form-group
+      .page-form-label
         = Spina::CaseStudies::CaseStudy.human_attribute_name :image_id
-      .horizontal-form-content
-        = link_to admin_media_picker_path(selected_ids: [f.object.image_id], hidden_field_id: 'media_picker_image_id'), remote: true, class: 'media_picker clearfix' do
-          .placeholder
-            %span.button.button-small.button-round
-              %i.icon.icon-dots
-              =t 'spina.images.choose_image'
+      .page-form-control{data: { controller: "image-form" } }
+        .page-form-media-picker
+          %div{ style: "width: 100%" }
+            = link_to admin_media_picker_path(selected_ids: [f.object.image_id], input: "media_picker_#{f.object.object_id}_image_id", mode: "single"), remote: true, class: 'image', data: {target: 'image-form.image'} do
+              .page-form-media-picker-placeholder=t "spina.images.choose_image"
+              %div{id: "media_picker_#{f.object.object_id}_image_id"}
+                = hidden_field_tag :signed_blob_id, '', data: { target: 'image-form.signedBlobId' }
+                = f.hidden_field :image_id, data: { target: 'image-form.imageId' }
+              %div
+                - if f.object.image.present?
+                  = image_tag main_app.url_for(f.object.image.variant(resize: "400x300^", crop: "400x300+0+0")), width: 200, height: 150
 
-          - if f.object&.image&.file&.attached?
-            .image
-              = image_tag variant(f.object.image.file, resize: "300x300^", crop: "300x300+0+0")
+          = button_tag type: :default, class: 'button button-small button-white', data: {action: "image-form#remove"} do
+            %i.icon.icon-cross{style: "margin: 0; font-size: 10px"}
 
-          = f.hidden_field :image_id, data: { hidden_field_id: "media_picker_image_id" }
 
-    .horizontal-form-content
-      .structure-form
-        .structure-form-menu
-          %label= t('spina.case_studies.case_study_parts.title')
-
-          %ul
-            - unless f.object.case_study_parts.nil?
-              - f.object.case_study_parts.sort_by(&:position).each_with_index do |part, index|
-                %li{class: ('active' if index == 0), data: {structure_item_id: part.object_id, case_study_part_id: part.object_id}}
+    .page-form-group
+      .page-form-label= t('spina.case_studies.case_study_parts.title')
+      .page-form-control
+        .structure-form{ data: { controller: "case-study-part-form" } }
+          .structure-form-menu
+            %ul{data: {target: "case-study-part-form.list"}}
+              - f.object.case_study_parts&.sort_by(&:position)&.each_with_index do |part, index|
+                %li{ class: ('active' if index.zero?), data: { structure_item_id: part.object_id,
+                  case_study_part_id: part.object_id,
+                  target: "case-study-part-form.listItem" } }
                   = link_to "#structure_form_pane_#{part.object_id}" do
                     %i.icon.icon-bars.sortable-handle
                     = part.title
 
-          = link_to_add_case_study_part_fields f, :case_study_parts do
-            = icon('plus')
+            %div{style: "margin-top: 6px; margin-left: 6px"}
+              = link_to_add_case_study_part_fields f do
+                = icon('plus')
+          .structure-form-content{data: {target: "case-study-part-form.content"}}
+            = f.fields_for :case_study_parts, f.object.case_study_parts.sort_by(&:position) do |ff|
+              = render 'spina/admin/case_studies/case_study_parts/fields', f: ff
 
-        .structure-form-content
-          = f.fields_for :case_study_parts, f.object.case_study_parts.sort_by(&:position) do |ff|
-            = render 'spina/admin/case_studies/case_study_parts/fields', f: ff
-
-    .horizontal-form-content
-      .structure-form
-        .structure-form-menu
-          %label
-            = t('spina.case_studies.case_studies.testimonial')
-            (Optional)
-
-        .structure-form-content
-          = f.fields_for :testimonial, (f.object.testimonial || f.object.build_testimonial) do |ff|
-            .structure-form-pane{class: 'active'}
-              .structure-form-part
-                .horizontal-form-label
-                  = Spina::CaseStudies::Testimonial.human_attribute_name :name
-                .horizontal-form-content
-                  = ff.text_field :name, placeholder: Spina::CaseStudies::Testimonial.human_attribute_name(:name_placeholder)
-
-              .structure-form-part
-                .horizontal-form-label
-                  = Spina::CaseStudies::Testimonial.human_attribute_name :company
-                .horizontal-form-content
-                  = ff.text_field :company, placeholder: Spina::CaseStudies::Testimonial.human_attribute_name(:company_placeholder)
-
-              .structure-form-part
-                .horizontal-form-label
-                  = Spina::CaseStudies::Testimonial.human_attribute_name :job_title
-                .horizontal-form-content
-                  = ff.text_field :job_title, placeholder: Spina::CaseStudies::Testimonial.human_attribute_name(:job_title_placeholder)
-
-              .structure-form-part
-                .horizontal-form-label
-                  = Spina::CaseStudies::Testimonial.human_attribute_name :content
-                .horizontal-form-content
-                  = render 'spina/admin/shared/rich_text_field', f: ff, field: :content
+    .page-form-group
+      .page-form-label
+        = t('spina.case_studies.case_studies.testimonial')
+        (Optional)
+      .page-form-control
+        .structure-form
+          .structure-form-menu
+            %label
 
 
-              .structure-form-part
-                .horizontal-form-label
-                  = Spina::CaseStudies::Testimonial.human_attribute_name :image_id
-                .horizontal-form-content
-                  = link_to admin_media_picker_path(selected_ids: [ff.object.image_id], hidden_field_id: 'media_picker_testimonial_image_id'), remote: true, class: 'media_picker clearfix' do
-                    .placeholder
-                      %span.button.button-small.button-round
-                        %i.icon.icon-dots
-                        =t 'spina.images.choose_image'
+          .structure-form-content
+            = f.fields_for :testimonial, (f.object.testimonial || f.object.build_testimonial) do |ff|
+              .structure-form-pane{ class: 'active' }
+                .structure-form-part
+                  .page-form-label
+                    = Spina::CaseStudies::Testimonial.human_attribute_name :name
+                  .page-form-content
+                    = ff.text_field :name, placeholder: Spina::CaseStudies::Testimonial.human_attribute_name(:name_placeholder)
 
-                    - if ff.object&.image&.file&.attached?
-                      .image
-                        = image_tag variant(ff.object.image.file, resize: "300x300^", crop: "300x300+0+0")
+                .structure-form-part
+                  .page-form-label
+                    = Spina::CaseStudies::Testimonial.human_attribute_name :company
+                  .page-form-content
+                    = ff.text_field :company, placeholder: Spina::CaseStudies::Testimonial.human_attribute_name(:company_placeholder)
 
-                    = ff.hidden_field :image_id, data: { hidden_field_id: "media_picker_testimonial_image_id" }
+                .structure-form-part
+                  .page-form-label
+                    = Spina::CaseStudies::Testimonial.human_attribute_name :job_title
+                  .page-form-content
+                    = ff.text_field :job_title, placeholder: Spina::CaseStudies::Testimonial.human_attribute_name(:job_title_placeholder)
+
+                .structure-form-part
+                  .page-form-label
+                    = Spina::CaseStudies::Testimonial.human_attribute_name :content
+                  .page-form-content
+                    .page-form-rich-text
+                      = ff.hidden_field :content, id: "#{ff.object.object_id}_content_input"
+                      %trix-editor.text-input.trix-content{ input: "#{ff.object.object_id}_content_input" }
+
+
+                .structure-form-part
+                  .page-form-label
+                    = Spina::CaseStudies::Testimonial.human_attribute_name :image_id
+                  .page-form-control{ data: { controller: "image-form" } }
+                    .page-form-media-picker
+                      %div{ style: "width: 100%" }
+                        = link_to admin_media_picker_path(selected_ids: [ff.object.image_id], input: "media_picker_#{ff.object.object_id}_image_id", mode: "single"), remote: true, class: 'image', data: {target: 'image-form.image'} do
+                          .page-form-media-picker-placeholder=t "spina.images.choose_image"
+                          %div{id: "media_picker_#{ff.object.object_id}_image_id"}
+                            = hidden_field_tag :signed_blob_id, '', data: { target: 'image-form.signedBlobId' }
+                            = ff.hidden_field :image_id, data: { target: 'image-form.imageId' }
+                          %div
+                            - if ff.object.image.present?
+                              = image_tag main_app.url_for(ff.object.image.variant(resize: "400x300^", crop: "400x300+0+0")), width: 200, height: 150
+
+                      = button_tag type: :default, class: 'button button-small button-white', data: { action: "image-form#remove" } do
+                        %i.icon.icon-cross{ style: "margin: 0; font-size: 10px" }

@@ -4,7 +4,7 @@ module Spina
   module CaseStudies
     # Spina::CaseStudies::CaseStudiesController
     class CaseStudiesController < ::Spina::ApplicationController
-      before_action :set_page
+      include Spina::Frontend
 
       def index
         @case_studies = Spina::CaseStudies::CaseStudy.all
@@ -18,7 +18,7 @@ module Spina
 
       private
 
-      def set_page
+      def page
         @page = Spina::Page.find_or_create_by name: 'case_studies' do |page|
           page.link_url = '/case_studies'
           page.title = 'Case Studies'

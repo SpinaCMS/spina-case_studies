@@ -1,41 +1,46 @@
-.structure-form-pane{class: ('active' if f.options[:child_index] == 0), id: "structure_form_pane_#{f.object.object_id}"}
+.structure-form-pane{class: ('active' if f.options[:child_index] == 0), id: "structure_form_pane_#{f.object.object_id}",
+  data: { case_study_part_id: f.object.object_id } }
   / Structure parts
   .structure-form-part
-    .horizontal-form-label
+    .page-form-label
       = f.label :title
-    .horizontal-form-content
+    .page-form-content
       = f.text_field :title, placeholder: Spina::CaseStudies::CaseStudyPart.human_attribute_name(:title_placeholder)
 
   .structure-form-part
-    .horizontal-form-label
+    .page-form-label
       = f.label :content
-    .horizontal-form-content
-      = render 'spina/admin/shared/rich_text_field', f: f, field: :content
+    .page-form-content
+      .page-form-rich-text
+        = f.hidden_field :content, id: "#{f.object.object_id}_content_input"
+        %trix-editor.text-input.trix-content{ input: "#{f.object.object_id}_content_input" }
 
   .structure-form-part
-    .horizontal-form-label
+    .page-form-label
       = f.label :spina_image
-    .horizontal-form-content
-      = link_to admin_media_picker_path(selected_ids: [f.object.image_id], hidden_field_id: "media_picker_#{f.object.object_id}"), remote: true, class: 'media_picker clearfix' do
-        .placeholder
-          %span.button.button-small.button-round
-            %i.icon.icon-dots
-            =t 'spina.images.choose_image'
+    .page-form-control{data: { controller: "image-form" } }
+      .page-form-media-picker
+        %div{ style: "width: 100%" }
+          = link_to admin_media_picker_path(selected_ids: [f.object.image_id], input: "media_picker_#{f.object.object_id}_image_id", mode: "single"), remote: true, class: 'image', data: {target: 'image-form.image'} do
+            .page-form-media-picker-placeholder=t "spina.images.choose_image"
+            %div{id: "media_picker_#{f.object.object_id}_image_id"}
+              = hidden_field_tag :signed_blob_id, '', data: { target: 'image-form.signedBlobId' }
+              = f.hidden_field :image_id, data: { target: 'image-form.imageId' }
+            %div
+              - if f.object.image.present?
+                = image_tag main_app.url_for(f.object.image.variant(resize: "400x300^", crop: "400x300+0+0")), width: 200, height: 150
 
-        - if f.object&.image&.file&.attached?
-          .image
-            = image_tag variant(f.object.image.file, resize: "300x300^", crop: "300x300+0+0")
-
-        = f.hidden_field :image_id, data: { hidden_field_id: "media_picker_#{f.object.object_id}" }
+        = button_tag type: :default, class: 'button button-small button-white', data: {action: "image-form#remove"} do
+          %i.icon.icon-cross{style: "margin: 0; font-size: 10px"}
 
   .structure-form-part
-    .horizontal-form-label
+    .page-form-label
       = f.label :alignment
-    .horizontal-form-content
+    .page-form-control
       .select-dropdown
-        = f.label :alignment
         = f.select :alignment, [['Right', 'right'], ['Left', 'left'], ['Centre', 'centre']], prompt: true
   / Hidden field
-  = f.hidden_field :position, placeholder: "Position", class: "structure_form_pane_#{f.object.object_id}_position"
+  = f.hidden_field :position, placeholder: "Position", class: "structure_form_pane_#{f.object.object_id}_position",
+    data: { target: 'position' }
   = f.hidden_field :_destroy
   = link_to t('spina.delete'), '#', class: 'remove_structure_item_fields button button-mini button-link pull-right'
