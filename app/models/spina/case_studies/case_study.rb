@@ -23,7 +23,7 @@ module Spina
       accepts_nested_attributes_for :testimonial, reject_if: :all_blank,
                                                   allow_destroy: true
 
-      after_save :rewrite_rule, if: :saved_change_to_slug?
+      after_update :rewrite_rule, if: :saved_change_to_slug?
 
       scope :live, -> { where draft: false }
 

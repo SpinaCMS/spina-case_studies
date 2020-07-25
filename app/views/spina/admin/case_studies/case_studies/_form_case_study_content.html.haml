@@ -34,7 +34,7 @@
               .page-form-media-picker-placeholder= t 'spina.images.choose_image'
               %div{ id: "media_picker_#{f.object.object_id}_image_id" }
                 = hidden_field_tag :signed_blob_id, '', data: { target: 'image-form.signedBlobId' }
-                = hidden_field_tag :filename, '', data: { target: 'image-form.filename' }
+                = hidden_field_tag :filename, '', id: nil, data: { target: 'image-form.filename' }
                 = f.hidden_field :image_id, data: { target: 'image-form.imageId' }
               %div
                 - if f.object.image.present?
@@ -117,7 +117,7 @@
                           .page-form-media-picker-placeholder= t 'spina.images.choose_image'
                           %div{ id: "media_picker_#{ff.object.object_id}_image_id" }
                             = hidden_field_tag :signed_blob_id, '', data: { target: 'image-form.signedBlobId' }
-                            = hidden_field_tag :filename, '', data: { target: 'image-form.filename' }
+                            = hidden_field_tag :filename, '', id: nil, data: { target: 'image-form.filename' }
                             = ff.hidden_field :image_id, data: { target: 'image-form.imageId' }
                           %div
                             - if ff.object.company_logo.present?
