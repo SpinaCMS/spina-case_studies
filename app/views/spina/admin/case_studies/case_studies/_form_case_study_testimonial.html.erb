@@ -1,0 +1,3 @@
+<%= f.fields_for :testimonial, (f.object.testimonial || f.object.build_testimonial) do |ff| %>
+  <%= render 'spina/admin/case_studies/testimonials/form_testimonial_content', f: ff %>
+<% end %>

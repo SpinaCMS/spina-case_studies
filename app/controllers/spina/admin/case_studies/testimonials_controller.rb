@@ -9,7 +9,7 @@ module Spina
         before_action :set_tabs, only: %i[new create edit update]
         before_action :set_locale
 
-        layout 'spina/admin/testimonials'
+        admin_section :case_studies
 
         helper Spina::CaseStudies::AdminHelper
 
@@ -44,7 +44,7 @@ module Spina
         def update
           @testimonial = Spina::CaseStudies::Testimonial.find params[:id]
 
-          if @testimonial.update_attributes resource_params
+          if @testimonial.update resource_params
             redirect_to spina.admin_case_studies_testimonials_path,
                         notice: t('spina.case_studies.testimonials.saved')
           else
@@ -77,7 +77,7 @@ module Spina
 
         def resource_params
           params.require(:testimonial).permit(
-            :name, :company, :job_title, :content, :image_id
+            :name, :company, :job_title, :content, :image_id, :company_logo_id
           )
         end
       end

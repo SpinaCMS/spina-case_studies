@@ -11,7 +11,9 @@ en:
         saving: Saving...
         saved: Case study saved
         case_study_content: Content
+        case_study_advanced: Advanced
         case_study_seo: Search Engines
+        case_study_testimonial: Testimonial
         concept: Draft
         destroyed: Case study destroyed
         delete_confirmation: Are you sure you want to delete this case study?

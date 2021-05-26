@@ -1,9 +1,0 @@
-.tab-content#case_study_advanced
-  .horizontal-form
-    %div{style: "margin: 40px 0"}
-      .horizontal-form-group
-        .horizontal-form-label
-          = Spina::CaseStudies::CaseStudy.human_attribute_name :draft
-          %small= Spina::CaseStudies::CaseStudy.human_attribute_name :draft_description
-        .horizontal-form-content
-          = f.check_box :draft, data: { switch: true }

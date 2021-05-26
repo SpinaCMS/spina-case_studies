@@ -26,6 +26,7 @@ module Spina
       after_update :rewrite_rule, if: :saved_change_to_slug?
 
       scope :live, -> { where draft: false }
+      scope :draft, -> { where draft: true }
 
       def slug_title
         seo_title.presence || title

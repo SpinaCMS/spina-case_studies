@@ -5,6 +5,7 @@ module Spina
     # Spina::CaseStudies::Testimonial
     class Testimonial < ApplicationRecord
       belongs_to :image, optional: true
+      belongs_to :company_logo, optional: true, class_name: 'Spina::Image'
 
       has_one :case_study, inverse_of: :testimonial, dependent: :nullify
 

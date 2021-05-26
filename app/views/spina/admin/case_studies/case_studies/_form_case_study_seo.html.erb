@@ -1,0 +1,14 @@
+<div>
+  <%= render Spina::Forms::LabelComponent.new(f, :seo_title) %>
+  <%= render Spina::Forms::TextFieldComponent.new(f, :seo_title) %>
+</div>
+
+<div class="mt-6">
+  <%= render Spina::Forms::LabelComponent.new(f, :description) %>
+  <%= render Spina::Forms::TextFieldComponent.new(f, :description) %>
+</div>
+
+<div class="mt-6">
+  <%= render Spina::Forms::LabelComponent.new(f, :slug) %>
+  <%= f.text_field :slug, placeholder: f.object.class.human_attribute_name(:slug), class: "mt-1 form-input font-medium block w-full max-w-5xl text-sm", readonly: true, disabled: true %>
+</div>
