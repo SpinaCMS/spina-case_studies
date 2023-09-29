@@ -11,6 +11,12 @@ module Spina
         end
       end
 
+      initializer 'spina_case_studies.register_parts' do |app|
+        app.reloader.to_prepare do
+          Spina::Part.register(Spina::Parts::CaseStudy)
+        end
+      end
+
       initializer 'spina_case_studies.assets.precompile' do |app|
         app.config.assets.precompile += %w[spina/case_studies/admin/case_studies.js]
       end

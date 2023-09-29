@@ -1,11 +1,11 @@
 <%= render Spina::MainNavigation::SubNavComponent.new(:case_studies) do |nav| %>
-  <% nav.icon do %>
+  <% nav.with_icon do %>
     <%= heroicon('chart-bar', style: :solid, class: 'w-8 h-8 text-white md:mr-3') %>
     <div class="text-white font-semibold hidden md:block transform -translate-x-2 ease-in-out duration-300 absolute md:relative opacity-0 transition-all" data-navigation-target="label">
       <%=t 'spina.case_studies.title' %>
     </div>
   <% end %>
-  <% nav.links do %>
+  <% nav.with_links do %>
     <%= render Spina::MainNavigation::LinkComponent.new(t('spina.case_studies.case_studies.title'), admin_case_studies_case_studies_path, active: request.path.start_with?("/#{Spina.config.backend_path}/case_studies")) %>
     <%= render Spina::MainNavigation::LinkComponent.new(t('spina.case_studies.testimonials.title'), admin_case_studies_testimonials_path, active: request.path.start_with?("/#{Spina.config.backend_path}/testimonials")) %>
   <% end %>
