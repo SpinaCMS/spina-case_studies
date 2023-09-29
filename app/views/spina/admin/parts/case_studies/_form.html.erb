@@ -1,0 +1,6 @@
+<div class="mt-6">
+  <%= f.label :case_study_id, f.object.title, class: 'block text-sm leading-5 font-medium text-gray-700' %>
+  <div class="mt-1">
+    <%= f.select :case_study_id, Spina::CaseStudies::CaseStudy.all.pluck(:title, :id), { include_blank: true }, { class: 'form-input block w-full max-w-5xl sm:text-sm sm:leading-5' } %>
+  </div>
+</div>

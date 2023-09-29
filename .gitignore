@@ -10,3 +10,4 @@ coverage
 Gemfile.lock
 spec/examples.txt
 *.gem
+.DS_Store
