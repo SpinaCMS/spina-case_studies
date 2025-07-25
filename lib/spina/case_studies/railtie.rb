@@ -14,6 +14,7 @@ module Spina
       initializer 'spina_case_studies.register_parts' do |app|
         app.reloader.to_prepare do
           Spina::Part.register(Spina::Parts::CaseStudy)
+          Spina::Part.register(Spina::Parts::Testimonial)
         end
       end
 

@@ -1,6 +1,0 @@
-.horizontal-form-label
-  = f.object.title
-.horizontal-form-content
-  .select-dropdown
-    = f.label :structure_partable_id, f.object.title
-    = f.select :structure_partable_id, Spina::CaseStudies::CaseStudy.order(:title).map{|c| [c.title, c.id]}, prompt: true, include_blank: true

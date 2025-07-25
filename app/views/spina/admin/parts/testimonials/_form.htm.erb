@@ -1,0 +1,6 @@
+<div class="mt-6">
+  <%= f.label :testimonial_id, f.object.title, class: 'block text-sm leading-5 font-medium text-gray-700' %>
+  <div class="mt-1">
+    <%= f.select :testimonial_id, Spina::CaseStudies::Testimonial.all.pluck(:name, :id), { include_blank: true }, { class: 'form-input block w-full max-w-5xl sm:text-sm sm:leading-5' } %>
+  </div>
+</div>
