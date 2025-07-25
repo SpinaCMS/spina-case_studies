@@ -14,7 +14,7 @@ module Spina
 
       has_many :case_study_parts, dependent: :destroy, inverse_of: :case_study
 
-      alias_attribute :parts, :case_study_parts
+      alias_method :parts, :case_study_parts
 
       validates :title, :image_id, presence: true
 
