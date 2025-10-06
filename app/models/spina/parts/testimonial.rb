@@ -2,7 +2,7 @@
 
 module Spina
   module Parts
-    class CaseStudy < Base
+    class Testimonial < Base
       attr_json :testimonial_id, :integer
 
       def content
