@@ -9,7 +9,7 @@ module Spina
         self
       end
 
-      def case_study
+      def testimonial
         Spina::CaseStudies::Testimonial.find_by(id: testimonial_id)
       end
     end
