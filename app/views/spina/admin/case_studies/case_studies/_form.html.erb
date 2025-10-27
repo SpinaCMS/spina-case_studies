@@ -1,4 +1,4 @@
-<div data-controller="tabs" data-tabs-active="cursor-default text-gray-900 bg-spina-dark bg-opacity-10" data-tabs-inactive="cursor-pointer bg-transparent text-gray-400 border-transparent">
+<div data-controller="tabs" data-tabs-active="cursor-default text-gray-900 bg-spina-dark/10" data-tabs-inactive="cursor-pointer bg-transparent text-gray-400 border-transparent">
   <%= render Spina::UserInterface::HeaderComponent.new do |header| %>
     <% header.with_actions do %>
       <% if @case_study.persisted? %>
@@ -21,10 +21,8 @@
     <% header.with_navigation do %>
       <nav class="-mb-3 mt-4">
         <ul class="inline-flex w-auto rounded-md bg-white">
-          <% @tabs.each do |tab| %>
-            <button type="button" class="block px-3 leading-relaxed py-1 hover:text-gray-800 rounded-md text-gray-400 font-medium text-sm flex items-center whitespace-nowrap" data-action="tabs#show" data-tabs-target="button" data-pane-id="<%= tab %>">
-              <%= t("spina.case_studies.case_studies.#{tab}") %>
-            </button>
+          <% @tabs.each do |tab_name| %>
+            <%= render partial: "button_#{tab_name}" %>
           <% end %>
         </ul>
       </nav>
